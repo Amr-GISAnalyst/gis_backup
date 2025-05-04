@@ -46,6 +46,12 @@ def backup():
   print("zipping geodatabase backup\n---------------")
   shutil.make_archive(f"{dest}\\{today}", 'zip', f"{dest}\\{geo_name}")
 
+  if os.path.exists(f"{dest}\\{geo_name}") and os.path.exists(f"{dest}\\{today}"):  
+    os.remove(f"{dest}\\{geo_name}")
+    print(f"File '{geo_name}' deleted successfully. \n and zipped file is exixsts")
+  else: 
+    backup()
+
 def retry(function):
 
   for i in range(5):

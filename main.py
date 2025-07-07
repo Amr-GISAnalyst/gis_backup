@@ -5,7 +5,7 @@ import arcpy.management
 import shutil
 import sys
 
-DATABASE = "D:\\projects\\Floyed\\gis.sde"
+DATABASE = "E:\\GIS Project\\gis_backup\\gis.sde"
 arcpy.env.overwriteOutput = True
 arcpy.env.workspace = DATABASE
 
@@ -18,7 +18,7 @@ layers = arcpy.ListFeatureClasses()
 print("today's date with format 'dd-mm-yy'\n---------------")
 today = date.today().strftime("%d-%m-%Y")
 
-dest = "D:\\gisBackup"
+dest = "E:\\Projects\\gis_backup\\daily_backup"
 geo_name = f"{today}.gdb"
 
 def backup():
@@ -30,7 +30,7 @@ def backup():
 
   print("copying datasets ...\n---------------")
   for data_set in datasets:
-    arcpy.Copy_management(f"D:\\projects\\Floyed\\gis.sde\\{data_set}", f"{dest}\\{geo_name}\\{data_set[4:]}")
+    arcpy.Copy_management(f"E:\\GIS Project\\gis_backup\\gis.sde\\{data_set}", f"{dest}\\{geo_name}\\{data_set[4:]}")
     print(f"{data_set} dataset is copied!")
 
   print("All Datasets are copied! ...\n---------------")
@@ -49,8 +49,9 @@ def backup():
   if os.path.exists(f"{dest}\\{geo_name}") and os.path.exists(f"{dest}\\{today}"):  
     os.remove(f"{dest}\\{geo_name}")
     print(f"File '{geo_name}' deleted successfully. \n and zipped file is exixsts")
-  else: 
-    backup()
+  # else: 
+  #   backup()
+  
 
 def retry(function):
 

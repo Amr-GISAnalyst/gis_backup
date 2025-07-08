@@ -46,23 +46,21 @@ def backup():
   print("zipping geodatabase backup\n---------------")
   shutil.make_archive(f"{dest}\\{today}", 'zip', f"{dest}\\{geo_name}")
 
-  if os.path.exists(f"{dest}\\{geo_name}") and os.path.exists(f"{dest}\\{today}"):  
-    os.remove(f"{dest}\\{geo_name}")
-    print(f"File '{geo_name}' deleted successfully. \n and zipped file is exixsts")
-  # else: 
-  #   backup()
+  shutil.rmtree(f"{dest}\\{geo_name}")
+  print(f"File {geo_name} deleted successfully. \n and zipped file exixsts at \n {dest}\\{today}")
   
 
 def retry(function):
 
-  for i in range(5):
+  for i in range(3):
     try:
       function()
       break
     except:
       e = sys.exc_info()[1]
       print(e.args[0])
-      shutil.rmtree(f"{dest}\\{geo_name}")
+      if os.path.exists(f"{dest}\\{geo_name}"):
+        shutil.rmtree(f"{dest}\\{geo_name}")
       continue
 
   print(f"You are all set and your GIS backup is at {dest}")
